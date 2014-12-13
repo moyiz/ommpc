@@ -19,6 +19,7 @@ def forward_mpd(mpd_server, mpd_port, command, args):
     client = OMMPClient(server=mpd_server, port=mpd_port)
     client.connect()
     client.commands.__getattr__(command)(*args)
+    client.disconnect()
 
 
 if __name__ == "__main__":

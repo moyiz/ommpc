@@ -14,6 +14,7 @@ def toggle_play():
         client.commands.pause()
     else:
         client.commands.play()
+    client.disconnect()
 
 
 if __name__ == "__main__":

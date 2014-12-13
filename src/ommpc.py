@@ -16,6 +16,7 @@ if status['state'] == 'play':
     client.commands.pause()
 else:
     client.commands.play()
+client.disconnet()
 
 
 To see the command list:
@@ -40,6 +41,7 @@ class OMMPClient(object):
     client = OMMPClient()
     client.connect()
     client.commands.play()
+    client.disconnect()
 
     Will start playing whatever in the current playlist
     """
