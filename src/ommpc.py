@@ -5,7 +5,7 @@ OMMPC can be used to control your MPD server with python, and can be
 used to implement your own MPD client.
 
 
-Basic Use (Simple Playback Toggle):
+Basic Usage (Simple Playback Toggle):
 ===================================
 from ommpc import OMMPClient
 
@@ -16,7 +16,7 @@ if status['state'] == 'play':
     client.commands.pause()
 else:
     client.commands.play()
-client.disconnet()
+client.disconnect()
 
 
 To see the command list:
@@ -67,7 +67,7 @@ class OMMPClient(object):
         result = self._con.receive()
         if self._password:
             p = self.commands.password(self._password)
-            if 'OK' not in p:
+            if Parser.OK_MSG not in p:
                 return p
         return result
 
@@ -119,8 +119,10 @@ class OMMPClient(object):
 
             def __getattr__(self, item):
                 not_wrapped = cls.__getattr__(item)
+
                 def f(*args):
                     return command_send(not_wrapped, args)
+
                 f.__doc__ = not_wrapped.__doc__
                 f.__name__ = not_wrapped.__name__
                 return f
@@ -367,13 +369,17 @@ class Parser(object):
                 and line != Parser.OK_MSG]
 
 
-class MPDCommandError(Exception):
+class OMMPCException(Exception):
     pass
 
 
-class MPDCommandNotExists(Exception):
+class MPDCommandError(OMMPCException):
     pass
 
 
-class ConnectionError(Exception):
+class MPDCommandNotExists(OMMPCException):
+    pass
+
+
+class ConnectionError(OMMPCException):
     pass

@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='ommpc',
-    version='0.1',
+    version='0.1.1',
     packages=[''],
     package_dir={'': 'src'},
     url='https://github.com/moyiz/ommpc',
